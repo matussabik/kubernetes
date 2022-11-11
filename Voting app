@@ -1,0 +1,22 @@
+cd /root
+kubectl delete all --all
+git clone https://github.com/ashishrpandey/example-voting-app
+cd /root/example-voting-app/k8s-specifications
+kubectl apply -f .
+kubectl get all
+kubectl delete po vote-94849dc97-lpwcl
+Container ID has changed, app is working.
+kubectl delete po worker-dd46d7584-rsm8r
+Container ID has changed, app is working.
+kubectl delete po db-b54cd94f4-6gkhf
+Result app lost connection to the db, after refreshing the page results are 50.0% : 50.0%. Vote app is working, but any change doesn't reflect in result app. Worker pod shows 1 restart.
+kubectl logs pod/db-b54cd94f4-ppr98
+kubectl exec --stdin --tty result-5d57b59f4b-kfz64 -- bash
+kubectl logs pod/result-5d57b59f4b-kfz64
+(Error performing query: Error: This socket has been ended by the other party)
+Three ways how to get app working again:
+1) kubectl delete po result-5d57b59f4b-kfz64
+2) kubectl scale deployment result --replicas=0
+   kubectl scale deployment result --replicas=1
+3) kubectl rollout restart deployment result
+A possible improvement is to store db's data on a persistent volume. Results won't be lost after Pod restart.
