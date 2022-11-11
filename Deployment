@@ -1,0 +1,2 @@
+It is needed to do a rolling update.
+kubectl set image deployment/my-deployment mycontainer=myimage:latest
