@@ -1,0 +1,5 @@
+kubectl get endpoints
+kubectl get all
+curl ip:port
+kubectl logs my-pod
+kubectl rollout restart deployment/my-deployment
