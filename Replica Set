@@ -1,0 +1,4 @@
+Using DaemonSet, Pods will be created automatically on new nodes. If a label is used, nodeSelector has to match it.
+Common use is to create a monitoring daemon, or a log collector.
+
+ReplicaSet is used, when an application needs to run on multiple Pods.
